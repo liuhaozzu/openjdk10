@@ -94,7 +94,21 @@ fi
 
 
 # Get clones of all absent nested repositories (harmless if already exist)
-sh ./common/bin/hgforest.sh clone "$@" || exit $?
+sh ./common/bin/hgforest.sh clone "$@"
+while [ $? -ne 0 ] 
+do 
+	sh ./common/bin/hgforest.sh clone "$@" 
+done
+
 
 # Update all existing repositories to the latest sources
 sh ./common/bin/hgforest.sh pull -u
+
+while [ $? -ne 0 ] 
+do
+	sh ./common/bin/hgforest.sh pull -u
+done
+
+
+
+
